@@ -68,8 +68,8 @@ public class LoginPage extends AppCompatActivity {
                                     .getValue(String.class);
                             String emailDB = snapshot.child(usernameLogin).child("email")
                                     .getValue(String.class);
-                            android.content.Intent intent = new android.content.Intent(LoginPage.this,
-                                    MainActivity.class);
+                            android.content.Intent intent = new android.content.Intent(com.example.roomrover.LoginPage.this,
+                                    com.example.roomrover.MainActivity.class);
                             intent.putExtra("name", nameDB);
                             intent.putExtra("email", emailDB);
                             intent.putExtra("password", passDBl);
@@ -77,10 +77,10 @@ public class LoginPage extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(LoginPage.this, "pass is bad", Toast.LENGTH_SHORT).show();
+                            android.widget.Toast.makeText(com.example.roomrover.LoginPage.this, "pass is bad", android.widget.Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(LoginPage.this, "user is not exists", Toast.LENGTH_SHORT).show();
+                        android.widget.Toast.makeText(com.example.roomrover.LoginPage.this, "user is not exists", android.widget.Toast.LENGTH_SHORT).show();
                     }
                 }
 
