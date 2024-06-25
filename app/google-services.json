@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1064222985086",
+    "project_id": "roomrover-2c1ce",
+    "storage_bucket": "roomrover-2c1ce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064222985086:android:520e80b3e3398be101c12f",
+        "android_client_info": {
+          "package_name": "com.example.roomrover"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKhh0JZV3QsWXvGZwab3SwmOFmQUbqDf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
