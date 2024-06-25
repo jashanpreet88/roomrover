@@ -14,15 +14,10 @@
         android:id="@+id/titlename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="Register"
         android:textSize="25dp"/>
 
-    <TextView
-        android:id="@+id/titleusername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username"
-        android:textSize="25dp"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +36,7 @@
             />
 
         <TextView
-            android:id="@+id/profilename"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -69,7 +64,7 @@
             />
 
         <TextView
-            android:id="@+id/profileemail"
+            android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -95,7 +90,7 @@
             />
 
         <TextView
-            android:id="@+id/profileusername"
+            android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -121,7 +116,7 @@
             />
 
         <TextView
-            android:id="@+id/profilepass"
+            android:id="@+id/password1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -10,23 +10,21 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class SignUp extends AppCompatActivity {
 
-    android.widget.TextView profileusername,profilename,profilepass,profileemail;
+    android.widget.TextView username,name, password, emailid;
 
-    android.widget.TextView titlename,titleusername;
 
-    android.widget.Button register,editprofile,deleteprofile;
+    android.widget.Button register;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
-        profileusername = findViewById(R.id.profileusername);
-        profilename = findViewById(R.id.profilename);
-        profilepass= findViewById(R.id.profilepass);
-        profileemail = findViewById(R.id.profileemail);
+        username = findViewById(com.example.roomrover.R.id.username);
+        name = findViewById(com.example.roomrover.R.id.name);
+        password = findViewById(com.example.roomrover.R.id.password1);
+        emailid = findViewById(R.id.email);
 
-        titlename = findViewById(R.id.titlename);
-        titleusername = findViewById(R.id.titleusername);
 
         register = findViewById(R.id.SignOut);
 
@@ -42,17 +40,6 @@ public class SignUp extends AppCompatActivity {
         });
 
 
-
-    }
-
-    public void showDatauser(){
-        android.content.Intent intent = getIntent();
-        titlename.setText("Welcome " + intent.getStringExtra("name"));
-        titleusername.setText(intent.getStringExtra("username"));
-        profileemail.setText(intent.getStringExtra("email"));
-        profilename.setText(intent.getStringExtra("name"));
-        profileusername.setText(intent.getStringExtra("username"));
-        profilepass.setText(intent.getStringExtra("password"));
     }
 
 }
