@@ -15,6 +15,7 @@ public class LoginPage extends AppCompatActivity {
     android.widget.TextView singuplink;
 
     // login activity change
+    // logo changed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
