@@ -1,15 +1,54 @@
 {
   "project_info": {
     "project_number": "1064222985086",
+    "firebase_url": "https://roomrover-2c1ce-default-rtdb.firebaseio.com",
     "project_id": "roomrover-2c1ce",
     "storage_bucket": "roomrover-2c1ce.appspot.com"
   },
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1064222985086:android:3780b915458395a401c12f",
+        "android_client_info": {
+          "package_name": "com.example.project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKhh0JZV3QsWXvGZwab3SwmOFmQUbqDf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1064222985086:android:520e80b3e3398be101c12f",
         "android_client_info": {
           "package_name": "com.example.roomrover"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKhh0JZV3QsWXvGZwab3SwmOFmQUbqDf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064222985086:android:4e2d9d0dec1147eb01c12f",
+        "android_client_info": {
+          "package_name": "com.jshan.room_rover"
         }
       },
       "oauth_client": [],
