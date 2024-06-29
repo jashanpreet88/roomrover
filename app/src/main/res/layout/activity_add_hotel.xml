@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/hotel_name_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hotel Name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/hotel_location_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/hotel_rating_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Rating"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/hotel_image_url_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Image URL"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/hotel_price_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Price per Night"
+        android:inputType="numberDecimal" />
+
+    <CheckBox
+        android:id="@+id/hotel_available_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available" />
+
+    <Button
+        android:id="@+id/save_hotel_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Hotel" />
+
+</LinearLayout>
