@@ -27,7 +27,7 @@ public class LoginPage extends AppCompatActivity {
         loginpass = findViewById(com.example.project.R.id.passwordlogin);
         loginbtn = findViewById(com.example.project.R.id.login);
         singuplink = findViewById(com.example.project.R.id.signuplink);
-
+//sign up here
         singuplink.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
