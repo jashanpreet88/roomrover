@@ -1,21 +1,22 @@
 package com.example.project;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.text.TextUtils;
+import android.util.Patterns;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.activity.EdgeToEdge;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import androidx.annotation.NonNull;
 import android.content.Intent;
+
 public class LoginPage extends AppCompatActivity {
 
     android.widget.EditText loginusername, loginpass;
     android.widget.Button loginbtn;
     android.widget.TextView singuplink;
-
-    // login activity change
-    // logo changed
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,21 +24,24 @@ public class LoginPage extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login_page);
 
+        mAuth = FirebaseAuth.getInstance();
+
         loginusername = findViewById(com.example.project.R.id.usernamelogin);
         loginpass = findViewById(com.example.project.R.id.passwordlogin);
         loginbtn = findViewById(com.example.project.R.id.login);
         singuplink = findViewById(com.example.project.R.id.signuplink);
-//sign up here
+
+        // Sign up link
         singuplink.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
-                android.content.Intent intent = new android.content.Intent(LoginPage.this, Signup.class);
+                Intent intent = new Intent(LoginPage.this, Signup.class);
                 startActivity(intent);
                 finish();
             }
         });
 
-
+        // Login button
         loginbtn.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
@@ -46,53 +50,52 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
-    public void checkuser(){
-        String usernameLogin = loginusername.getText().toString().trim();
-        String passLogin = loginpass.getText().toString().trim();
-        com.google.firebase.database.DatabaseReference reference = com.google.firebase.database.FirebaseDatabase.getInstance()
-                .getReference("users");
-        com.google.firebase.database.Query checkuserData = reference.orderByChild("username")
-                .equalTo(usernameLogin);
-        checkuserData.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
-            @Override
-            public void onDataChange(@androidx.annotation.NonNull com.google.firebase.database.DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String passDB = snapshot.child(usernameLogin).child("password")
-                            .getValue(String.class);
-                    if (passDB.equals(passLogin)) {
-                        String usernameDB = snapshot.child(usernameLogin).child("username")
-                                .getValue(String.class);
-                        String passDBl = snapshot.child(usernameLogin).child("password")
-                                .getValue(String.class);
-                        String nameDB = snapshot.child(usernameLogin).child("name")
-                                .getValue(String.class);
-                        String emailDB = snapshot.child(usernameLogin).child("email")
-                                .getValue(String.class);
-                        android.content.Intent intent = new android.content.Intent(com.example.project.LoginPage.this,
-                                com.example.project.MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                        intent.putExtra("name", nameDB);
-                        intent.putExtra("email", emailDB);
-                        intent.putExtra("password", passDBl);
-                        intent.putExtra("username", usernameDB);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        android.widget.Toast.makeText(com.example.project.LoginPage.this, "Invalid Password", android.widget.Toast.LENGTH_SHORT).show();
+    public void checkuser() {
+        String email = loginusername.getText().toString().trim();
+        String password = loginpass.getText().toString().trim();
+
+        // Input validation
+        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            loginusername.setError("Valid email is required");
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            loginpass.setError("Password is required");
+            return;
+        }
+
+        // Authenticate user
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new com.google.android.gms.tasks.OnCompleteListener<com.google.firebase.auth.AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<com.google.firebase.auth.AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Login success
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (user != null && user.getEmail().equals("manager@gmail.com")) {
+                                Intent intent = new Intent(LoginPage.this, ManagerActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(LoginPage.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                            finish();
+                        } else {
+                            // Login failed
+                            String errorMessage = "Authentication failed.";
+                            try {
+                                throw task.getException();
+                            } catch (com.google.firebase.auth.FirebaseAuthInvalidUserException e) {
+                                errorMessage = "User does not exist.";
+                            } catch (com.google.firebase.auth.FirebaseAuthInvalidCredentialsException e) {
+                                errorMessage = "Invalid password.";
+                            } catch (Exception e) {
+                                errorMessage = e.getMessage();
+                            }
+                            Toast.makeText(LoginPage.this, errorMessage, Toast.LENGTH_LONG).show();
+                        }
                     }
-                } else {
-                    android.widget.Toast.makeText(com.example.project.LoginPage.this, "user is not exists", android.widget.Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@androidx.annotation.NonNull com.google.firebase.database.DatabaseError error) {
-
-            }
-        });
-
-
-
+                });
     }
 }

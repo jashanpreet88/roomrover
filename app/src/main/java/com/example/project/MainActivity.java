@@ -1,56 +1,61 @@
 package com.example.project;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.view.View;
+import android.widget.Button;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.activity.EdgeToEdge;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import androidx.annotation.NonNull;
-import android.content.Intent;
-import android.widget.Toast;
-
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference HotelsDB;
+    private Button signOutButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        isUserloged();
+        isUserLogged();
         HotelsDB = FirebaseDatabase.getInstance().getReference("hotels");
 
-
-
-
+        signOutButton = findViewById(R.id.sign_out_button);
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(MainActivity.this, LoginPage.class));
+                finish();
+            }
+        });
     }
 
-    private void isUserloged(){
+    private void isUserLogged() {
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() == null){
-                    Intent intent = new android.content.Intent(MainActivity.this, LoginPage.class);
+                if (firebaseAuth.getCurrentUser() == null) {
+                    Intent intent = new Intent(MainActivity.this, LoginPage.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    if(firebaseAuth.getCurrentUser().getEmail().equals("manager@gmail.com")){
-                        Intent intent = new android.content.Intent(MainActivity.this, ManagerActivity.class);
+                } else {
+                    if (firebaseAuth.getCurrentUser().getEmail().equals("manager@gmail.com")) {
+                        Intent intent = new Intent(MainActivity.this, ManagerActivity.class);
                         startActivity(intent);
                         finish();
-                    }else{
+                    } else {
                         // user
-                        }
+                    }
                 }
             }
         });

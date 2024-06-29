@@ -18,11 +18,11 @@ public class Signup extends AppCompatActivity {
 
     EditText nameEditText;
     EditText emailEditText;
-    EditText usernameEditText;
+    EditText confirmPasswordEditText;
     EditText passwordEditText;
     Button registerButton;
     FirebaseAuth mAuth;
-    DatabaseReference mDatabase;
+    DatabaseReference UsersDB;
     android.widget.TextView textView;
 
     @Override
@@ -31,12 +31,12 @@ public class Signup extends AppCompatActivity {
         setContentView(com.example.project.R.layout.activity_signup);
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        UsersDB = FirebaseDatabase.getInstance().getReference("users");
 
         nameEditText = findViewById(com.example.project.R.id.name);
         emailEditText = findViewById(com.example.project.R.id.email);
-        usernameEditText = findViewById(com.example.project.R.id.username);
-        passwordEditText = findViewById(com.example.project.R.id.password1);
+        passwordEditText = findViewById(com.example.project.R.id.password);
+        confirmPasswordEditText = findViewById(com.example.project.R.id.confirm_password);
         registerButton = findViewById(com.example.project.R.id.register_button);
         textView = findViewById(com.example.project.R.id.acc1);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -58,8 +58,8 @@ public class Signup extends AppCompatActivity {
     private void registerUser() {
         String name = nameEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
-        String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
+        String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
         // Input validation
         if (TextUtils.isEmpty(name)) {
@@ -72,13 +72,23 @@ public class Signup extends AppCompatActivity {
             return;
         }
 
-        if (TextUtils.isEmpty(username)) {
-            usernameEditText.setError("Username is required");
+        if (TextUtils.isEmpty(password)) {
+            passwordEditText.setError("Password is required");
             return;
         }
 
-        if (TextUtils.isEmpty(password) || password.length() < 6) {
+        if (password.length() < 6) {
             passwordEditText.setError("Password must be at least 6 characters");
+            return;
+        }
+
+        if (TextUtils.isEmpty(confirmPassword)) {
+            confirmPasswordEditText.setError("Confirm Password is required");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            confirmPasswordEditText.setError("Passwords do not match");
             return;
         }
 
@@ -91,15 +101,17 @@ public class Signup extends AppCompatActivity {
                             // User registration success
                             com.google.firebase.auth.FirebaseUser user = mAuth.getCurrentUser();
                             String userId = user.getUid();
-                            User newUser = new User(name, email, username);
+                            User newUser = new User(name, email);
 
                             // Save user data to database
-                            mDatabase.child("users").child(userId).setValue(newUser)
+                            UsersDB.child(userId).setValue(newUser)
                                     .addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 Toast.makeText(Signup.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                                                startActivity(new android.content.Intent(Signup.this, MainActivity.class));
+                                                finish();
                                             } else {
                                                 Toast.makeText(Signup.this, "Failed to save user data.", Toast.LENGTH_SHORT).show();
                                             }
@@ -124,19 +136,6 @@ public class Signup extends AppCompatActivity {
                     }
                 });
     }
-
-    public static class User {
-        public String name;
-        public String email;
-        public String username;
-
-        public User() {
-        }
-
-        public User(String name, String email, String username) {
-            this.name = name;
-            this.email = email;
-            this.username = username;
-        }
-    }
 }
+
+
