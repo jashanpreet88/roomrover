@@ -13,9 +13,9 @@ import android.content.Intent;
 
 public class LoginPage extends AppCompatActivity {
 
-    android.widget.EditText loginusername, loginpass;
-    android.widget.Button loginbtn;
-    android.widget.TextView singuplink;
+    private android.widget.EditText loginusername, loginpass;
+    private android.widget.Button loginbtn, forgotPasswordBtn;
+    private android.widget.TextView signuplink;
     private FirebaseAuth mAuth;
 
     @Override
@@ -26,28 +26,28 @@ public class LoginPage extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        loginusername = findViewById(com.example.project.R.id.usernamelogin);
-        loginpass = findViewById(com.example.project.R.id.passwordlogin);
-        loginbtn = findViewById(com.example.project.R.id.login);
-        singuplink = findViewById(com.example.project.R.id.signuplink);
+        loginusername = findViewById(R.id.usernamelogin);
+        loginpass = findViewById(R.id.passwordlogin);
+        loginbtn = findViewById(R.id.login);
+        forgotPasswordBtn = findViewById(R.id.forgot_password);
+        signuplink = findViewById(R.id.signuplink);
 
         // Sign up link
-        singuplink.setOnClickListener(new android.view.View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View v) {
-                Intent intent = new Intent(LoginPage.this, Signup.class);
-                startActivity(intent);
-                finish();
-            }
+        signuplink.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginPage.this, Signup.class);
+            startActivity(intent);
+            finish();
+        });
+
+        // Forgot Password link
+        forgotPasswordBtn.setOnClickListener(v -> {
+             Intent intent = new Intent(LoginPage.this, ResetPasswordActivity.class);
+             startActivity(intent);
+             finish();
         });
 
         // Login button
-        loginbtn.setOnClickListener(new android.view.View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View v) {
-                checkuser();
-            }
-        });
+        loginbtn.setOnClickListener(v -> checkuser());
     }
 
     public void checkuser() {
@@ -67,34 +67,31 @@ public class LoginPage extends AppCompatActivity {
 
         // Authenticate user
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new com.google.android.gms.tasks.OnCompleteListener<com.google.firebase.auth.AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<com.google.firebase.auth.AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Login success
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            if (user != null && user.getEmail().equals("manager@gmail.com")) {
-                                Intent intent = new Intent(LoginPage.this, ManagerActivity.class);
-                                startActivity(intent);
-                            } else {
-                                Intent intent = new Intent(LoginPage.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-                            finish();
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Login success
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Intent intent;
+                        if (user != null && "manager@gmail.com".equals(user.getEmail())) {
+                            intent = new Intent(LoginPage.this, ManagerActivity.class);
                         } else {
-                            // Login failed
-                            String errorMessage = "Authentication failed.";
-                            try {
-                                throw task.getException();
-                            } catch (com.google.firebase.auth.FirebaseAuthInvalidUserException e) {
-                                errorMessage = "User does not exist.";
-                            } catch (com.google.firebase.auth.FirebaseAuthInvalidCredentialsException e) {
-                                errorMessage = "Invalid password.";
-                            } catch (Exception e) {
-                                errorMessage = e.getMessage();
-                            }
-                            Toast.makeText(LoginPage.this, errorMessage, Toast.LENGTH_LONG).show();
+                            intent = new Intent(LoginPage.this, MainActivity.class);
                         }
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        // Login failed
+                        String errorMessage = "Authentication failed.";
+                        try {
+                            throw task.getException();
+                        } catch (com.google.firebase.auth.FirebaseAuthInvalidUserException e) {
+                            errorMessage = "User does not exist.";
+                        } catch (com.google.firebase.auth.FirebaseAuthInvalidCredentialsException e) {
+                            errorMessage = "Invalid password.";
+                        } catch (Exception e) {
+                            errorMessage = e.getMessage();
+                        }
+                        Toast.makeText(LoginPage.this, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 });
     }
