@@ -25,18 +25,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManagerActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity {
 
     private RecyclerView hotelsRecyclerView;
     private Button addHotelButton;
     private DatabaseReference hotelsRef;
     private List<Hotel> hotelList;
-    private HotelManagerAdapter hotelAdapter;
+    private HotelUserAdapter hotelAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manager);
+        setContentView(R.layout.activity_user);
 
         // Initialize Firebase
         hotelsRef = FirebaseDatabase.getInstance().getReference().child("hotels");
@@ -44,23 +44,16 @@ public class ManagerActivity extends AppCompatActivity {
         // Initialize Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Room Rover - Manager");
+        toolbar.setTitle("Room Rover");
 
         // Initialize RecyclerView and Adapter
         hotelsRecyclerView = findViewById(R.id.hotels_recycler_view);
         hotelsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         hotelList = new ArrayList<>();
-        hotelAdapter = new HotelManagerAdapter(hotelList, this);
+        hotelAdapter = new HotelUserAdapter(hotelList, this);
         hotelsRecyclerView.setAdapter(hotelAdapter);
 
-        // Initialize Add Hotel Button
-        addHotelButton = findViewById(R.id.add_hotel_button);
-        addHotelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ManagerActivity.this, AddHotelActivity.class));
-            }
-        });
+
 
         // Retrieve hotels from Firebase
         retrieveHotels();
@@ -83,7 +76,7 @@ public class ManagerActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ManagerActivity.this, "Failed to retrieve hotels: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserActivity.this, "Failed to retrieve hotels: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -98,7 +91,7 @@ public class ManagerActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.sign_out_menu) {
-            startActivity(new Intent(ManagerActivity.this, SignOutActivity.class));
+            startActivity(new Intent(UserActivity.this, SignOutActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

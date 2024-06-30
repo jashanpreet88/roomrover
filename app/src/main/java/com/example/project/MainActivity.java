@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        // user
+                        Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
             }

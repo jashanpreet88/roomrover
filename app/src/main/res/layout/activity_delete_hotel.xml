@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Hotel Details -->
+    <TextView
+        android:id="@+id/hotel_name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hotel Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingTop="8dp" />
+
+    <TextView
+        android:id="@+id/hotel_location_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:textSize="16sp"
+        android:paddingTop="8dp" />
+
+    <TextView
+        android:id="@+id/hotel_rating_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rating"
+        android:textSize="16sp"
+        android:paddingTop="8dp" />
+
+    <TextView
+        android:id="@+id/hotel_price_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Price Per Night"
+        android:textSize="16sp"
+        android:paddingTop="8dp" />
+
+    <TextView
+        android:id="@+id/hotel_availability_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Availability"
+        android:textSize="16sp"
+        android:paddingTop="8dp" />
+
+    <!-- Delete Button -->
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Hotel"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

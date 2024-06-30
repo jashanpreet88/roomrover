@@ -1,0 +1,8 @@
+<!-- res/menu/menu_manager.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/sign_out_menu"
+        android:title="Sign Out"
+        android:orderInCategory="100"
+        android:titleTextAppearance="@color/black" />
+</menu>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Edit Text Fields for Hotel Details -->
+    <EditText
+        android:id="@+id/edit_hotel_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hotel Name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edit_hotel_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edit_hotel_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Rating"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/edit_hotel_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Price Per Night"
+        android:inputType="numberDecimal" />
+
+    <CheckBox
+        android:id="@+id/edit_hotel_available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available" />
+
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Changes"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

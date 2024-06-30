@@ -85,7 +85,7 @@ public class AddHotelActivity extends AppCompatActivity {
         String hotelId = hotelsRef.push().getKey();
 
         // Create hotel object
-        Hotel hotel = new Hotel(name, location, rating, imageUrl, pricePerNight, available);
+        Hotel hotel = new Hotel(hotelId, name, location, rating, imageUrl, pricePerNight, available);
 
         // Save hotel to Firebase
         if (hotelId != null) {

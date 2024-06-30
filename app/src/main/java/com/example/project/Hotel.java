@@ -13,7 +13,9 @@ public class Hotel {
     public Hotel() {
     }
 
-    public Hotel(String name, String location, double rating, String imageUrl, double pricePerNight, boolean available) {
+    // Constructor with parameters
+    public Hotel(String id, String name, String location, double rating, String imageUrl, double pricePerNight, boolean available) {
+        this.id = id;
         this.name = name;
         this.location = location;
         this.rating = rating;
