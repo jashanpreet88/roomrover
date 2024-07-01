@@ -56,8 +56,6 @@ public class EditHotelActivity extends AppCompatActivity {
     }
 
     private void loadHotelDetails() {
-        // TODO: Implement method to load hotel details from Firebase and populate EditText fields
-        // Example code:
          hotelsRef.child(hotelId).addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
              @Override
              public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot) {
