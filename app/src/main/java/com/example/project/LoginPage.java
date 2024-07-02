@@ -72,7 +72,7 @@ public class LoginPage extends AppCompatActivity {
                         // Login success
                         FirebaseUser user = mAuth.getCurrentUser();
                         Intent intent;
-                        if (user != null && "manager@gmail.com".equals(user.getEmail())) {
+                        if (user != null && "jashanchhapa85@gmail.com".equals(user.getEmail())) {
                             intent = new Intent(LoginPage.this, ManagerActivity.class);
                         } else {
                             intent = new Intent(LoginPage.this, MainActivity.class);

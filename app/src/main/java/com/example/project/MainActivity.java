@@ -49,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    if (firebaseAuth.getCurrentUser().getEmail().equals("manager@gmail.com")) {
+
+
+                    if (firebaseAuth.getCurrentUser().getEmail().equals("jashanchhapa85@gmail.com")) {
                         Intent intent = new Intent(MainActivity.this, ManagerActivity.class);
                         startActivity(intent);
                         finish();
